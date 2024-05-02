@@ -17,7 +17,8 @@ func createPipeline() pipeline.RequestPipeline {
 		&basic.StaticFileComponent{},
 		// &SimpleMessageComponent{},
 		handling.NewRouter(
-			handling.HandlerEntry{"", NameHandler{}},
+			handling.HandlerEntry{Prefix: "", Handler: NameHandler{}},
+			handling.HandlerEntry{Prefix: "", Handler: DayHandler{}},
 		),
 	)
 }

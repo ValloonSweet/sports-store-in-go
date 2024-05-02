@@ -1,6 +1,7 @@
 package handling
 
 import (
+	"fmt"
 	"net/http"
 	"reflect"
 	"regexp"
@@ -25,10 +26,15 @@ var httpMethods = []string{http.MethodGet, http.MethodPost,
 	http.MethodDelete, http.MethodPut}
 
 func generateRoutes(entries ...HandlerEntry) []Route {
+	fmt.Println("entries: ", entries)
 	routes := make([]Route, 0, 10)
 	for _, entry := range entries {
+		fmt.Println("entrh: ", entry)
 		handlerType := reflect.TypeOf(entry.Handler)
+		fmt.Println("handler type: ", handlerType)
 		promotedMethods := getAnonymousFieldMethods(handlerType)
+
+		fmt.Println("Promoted methods:", promotedMethods)
 
 		for i := 0; i < handlerType.NumMethod(); i++ {
 			method := handlerType.Method(i)
@@ -51,6 +57,7 @@ func generateRoutes(entries ...HandlerEntry) []Route {
 			}
 		}
 	}
+	fmt.Println("routes: ", routes)
 	return routes
 }
 
