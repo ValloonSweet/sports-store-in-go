@@ -26,7 +26,6 @@ var httpMethods = []string{http.MethodGet, http.MethodPost,
 	http.MethodDelete, http.MethodPut}
 
 func generateRoutes(entries ...HandlerEntry) []Route {
-	fmt.Println("entries: ", entries)
 	routes := make([]Route, 0, 10)
 	for _, entry := range entries {
 		fmt.Println("entrh: ", entry)
@@ -44,6 +43,8 @@ func generateRoutes(entries ...HandlerEntry) []Route {
 					if matchesPromotedMethodName(method, promotedMethods) {
 						continue
 					}
+					fmt.Println("method name: ", methodName)
+					fmt.Println("http name: ", httpMethod)
 					route := Route{
 						httpMethod:    httpMethod,
 						prefix:        entry.Prefix,
