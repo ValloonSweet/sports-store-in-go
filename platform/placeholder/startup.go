@@ -19,7 +19,7 @@ func createPipeline() pipeline.RequestPipeline {
 		handling.NewRouter(
 			handling.HandlerEntry{Prefix: "", Handler: NameHandler{}},
 			handling.HandlerEntry{Prefix: "", Handler: DayHandler{}},
-		),
+		).AddMethodsAlias("/", NameHandler.GetNames),
 	)
 }
 
