@@ -19,6 +19,21 @@ type MemoryRepo struct {
 	categories []models.Category
 }
 
+// GetProductPageCategory implements models.Repository.
+func (r *MemoryRepo) GetProductPageCategory(categoryId int, page int, pageSize int) (products []models.Product, totalAvailable int) {
+	if categoryId == 0 {
+		return r.GetProductPage(page, pageSize)
+	} else {
+		filteredProducts := make([]models.Product, 0, len(r.products))
+		for _, p := range r.products {
+			if p.Category.ID == categoryId {
+				filteredProducts = append(filteredProducts, p)
+			}
+		}
+		return getPage(filteredProducts, page, pageSize), len(filteredProducts)
+	}
+}
+
 // GetProductPage implements models.Repository.
 func (r *MemoryRepo) GetProductPage(page int, pageSize int) (products []models.Product, totalAvailable int) {
 	return getPage(r.products, page, pageSize), len(r.products)
