@@ -6,5 +6,10 @@ type Repository interface {
 	GetProductPage(page, pageSize int) (products []Product, totalAvailable int)
 	GetProductPageCategory(categoryId int, page, pageSize int) (products []Product, totalAvailable int)
 	GetCategories() []Category
+
+	GetOrder(id int) Order
+	GetOrders() []Order
+	SaveOrder(*Order)
+
 	Seed()
 }

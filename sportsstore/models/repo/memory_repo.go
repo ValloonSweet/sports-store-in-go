@@ -2,17 +2,17 @@ package repo
 
 import (
 	"math"
-	"platform/services"
+	// "platform/services"
 	"sportsstore/models"
 )
 
-func RegisterMemoryRepoService() {
-	services.AddSingleton(func() models.Repository {
-		repo := &MemoryRepo{}
-		repo.Seed()
-		return repo
-	})
-}
+// func RegisterMemoryRepoService() {
+// 	services.AddSingleton(func() models.Repository {
+// 		repo := &MemoryRepo{}
+// 		repo.Seed()
+// 		return repo
+// 	})
+// }
 
 type MemoryRepo struct {
 	products   []models.Product
