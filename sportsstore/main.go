@@ -7,6 +7,7 @@ import (
 	"platform/pipeline/basic"
 	"platform/services"
 	"platform/sessions"
+	"sportsstore/admin"
 	"sportsstore/models/repo"
 	"sportsstore/store"
 	"sportsstore/store/cart"
@@ -33,8 +34,14 @@ func createPipeline() pipeline.RequestPipeline {
 			handling.HandlerEntry{Prefix: "", Handler: store.CategoryHandler{}},
 			handling.HandlerEntry{Prefix: "", Handler: store.CartHandler{}},
 			handling.HandlerEntry{Prefix: "", Handler: store.OrderHandler{}},
+			handling.HandlerEntry{Prefix: "", Handler: admin.AdminHandler{}},
+			handling.HandlerEntry{Prefix: "", Handler: admin.ProductsHandler{}},
+			handling.HandlerEntry{Prefix: "", Handler: admin.CategoriesHandler{}},
+			handling.HandlerEntry{Prefix: "", Handler: admin.OrdersHandler{}},
+			handling.HandlerEntry{Prefix: "", Handler: admin.DatabaseHandler{}},
 		).AddMethodsAlias("/", store.ProductHandler.GetProducts, 0, 1).
-			AddMethodsAlias("/products[/]?[A-z0-9]*?", store.ProductHandler.GetProducts, 0, 1),
+			AddMethodsAlias("/products[/]?[A-z0-9]*?", store.ProductHandler.GetProducts, 0, 1).
+			AddMethodsAlias("/admin[/]?", admin.AdminHandler.GetSection, ""),
 	)
 }
 func main() {
